@@ -125,7 +125,7 @@ namespace Watcher_WPF
         private void SetPath(string path)
         {
             watcher.Path = path;
-            ShowMessage($"Set path: \"{watcher.Path}\"");
+            ShowMessage($"set path: \"{watcher.Path}\"");
         }
 
         protected void Watcher_Changes(object sender, FileSystemEventArgs e)

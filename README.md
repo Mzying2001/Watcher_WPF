@@ -1,2 +1,2 @@
 # Watcher_WPF
-A simple GUI of file system watcher
+A simple GUI of FileSystemWatcher (WPF)
