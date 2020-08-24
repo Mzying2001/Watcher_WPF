@@ -8,10 +8,8 @@ namespace Watcher_WPF
 
         public bool IsStarted
         {
-            get
-            {
-                return watcher.EnableRaisingEvents;
-            }
+            get => watcher.EnableRaisingEvents;
+
             set
             {
                 watcher.EnableRaisingEvents = value;
@@ -20,10 +18,8 @@ namespace Watcher_WPF
 
         public string Path
         {
-            get
-            {
-                return watcher.Path;
-            }
+            get => watcher.Path;
+
             set
             {
                 string path = value.Replace('/', '\\');

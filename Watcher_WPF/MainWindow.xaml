@@ -12,9 +12,11 @@
         <Button x:Name="button_doit" Content="start" HorizontalAlignment="Right" Margin="0,12,90,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_doit_Click"/>
         <Button x:Name="button_options" Content="options" HorizontalAlignment="Right" Margin="0,12,10,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_options_Click">
             <Button.ContextMenu>
-                <ContextMenu x:Name="options">
+                <ContextMenu x:Name="options" Opened="OptionsMenu_Opened">
                     <MenuItem Header="save logs" Click="SaveLogs"/>
                     <MenuItem Header="clear logs" Click="ClearLogs"/>
+                    <Separator/>
+                    <MenuItem Header="window top-most" x:Name="topmost_switcher" Click="Switch_Window_Topmost"/>
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>

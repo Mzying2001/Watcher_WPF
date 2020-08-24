@@ -80,6 +80,16 @@ namespace Watcher_WPF
             }
         }
 
+        private void Button_options_Click(object sender, RoutedEventArgs e)
+        {
+            options.IsOpen = true;
+        }
+
+        private void OptionsMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            topmost_switcher.IsChecked = Topmost;
+        }
+
         private void SaveLogs(object sender, RoutedEventArgs e)
         {
             try
@@ -111,9 +121,9 @@ namespace Watcher_WPF
             richTextBox_main.Document.Blocks.Clear();
         }
 
-        private void Button_options_Click(object sender, RoutedEventArgs e)
+        private void Switch_Window_Topmost(object sender, RoutedEventArgs e)
         {
-            options.IsOpen = true;
+            Topmost = !Topmost;
         }
 
         private void TextBox_path_KeyDown(object sender, KeyEventArgs e)
