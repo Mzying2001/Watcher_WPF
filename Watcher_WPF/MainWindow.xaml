@@ -16,7 +16,7 @@
                     <MenuItem Header="save logs" Click="SaveLogs"/>
                     <MenuItem Header="clear logs" Click="ClearLogs"/>
                     <Separator/>
-                    <MenuItem Header="window top-most" x:Name="topmost_switcher" Click="Switch_Window_Topmost"/>
+                    <MenuItem x:Name="topmost_switcher" Header="window top-most" Click="Switch_Window_Topmost"/>
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
