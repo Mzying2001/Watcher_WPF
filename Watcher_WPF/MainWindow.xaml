@@ -8,13 +8,18 @@
         Title="Watcher" Height="450" Width="800" MinWidth="500" MinHeight="300">
     <Grid>
         <Label Content="path：" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_path" Height="23" Margin="58,12,250,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Text="C:\" KeyDown="TextBox_path_KeyDown"/>
-        <Button x:Name="button_doit" Content="start" HorizontalAlignment="Right" Margin="0,12,170,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_doit_Click"/>
-        <Button x:Name="button_clear" Content="clear" HorizontalAlignment="Right" Margin="0,12,90,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_clear_Click"/>
-        <Button x:Name="button_save" Content="save" HorizontalAlignment="Right" Margin="0,12,10,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_save_Click"/>
-        <RichTextBox x:Name="richTextBox_main" Margin="0,40,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="Black" Foreground="White" TextChanged="RichTextBox_main_TextChanged" FontFamily="Consolas">
+        <TextBox x:Name="textBox_path" Height="23" Margin="58,12,170,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Text="C:\" KeyDown="TextBox_path_KeyDown"/>
+        <Button x:Name="button_doit" Content="start" HorizontalAlignment="Right" Margin="0,12,90,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_doit_Click"/>
+        <Button x:Name="button_options" Content="options" HorizontalAlignment="Right" Margin="0,12,10,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_options_Click">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="options">
+                    <MenuItem Header="save logs" Click="SaveLogs"/>
+                    <MenuItem Header="clear logs" Click="ClearLogs"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+            <RichTextBox x:Name="richTextBox_main" Margin="0,40,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="Black" Foreground="White" TextChanged="RichTextBox_main_TextChanged" FontFamily="Consolas">
             <FlowDocument LineHeight="1"/>
         </RichTextBox>
-
     </Grid>
 </Window>

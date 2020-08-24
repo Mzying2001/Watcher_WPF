@@ -80,12 +80,7 @@ namespace Watcher_WPF
             }
         }
 
-        private void Button_clear_Click(object sender, RoutedEventArgs e)
-        {
-            richTextBox_main.Document.Blocks.Clear();
-        }
-
-        private void Button_save_Click(object sender, RoutedEventArgs e)
+        private void SaveLogs(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -111,6 +106,16 @@ namespace Watcher_WPF
             }
         }
 
+        private void ClearLogs(object sender, RoutedEventArgs e)
+        {
+            richTextBox_main.Document.Blocks.Clear();
+        }
+
+        private void Button_options_Click(object sender, RoutedEventArgs e)
+        {
+            options.IsOpen = true;
+        }
+
         private void TextBox_path_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -128,22 +133,29 @@ namespace Watcher_WPF
             ShowMessage($"set path: \"{watcher.Path}\"");
         }
 
-        protected void Watcher_Changes(object sender, FileSystemEventArgs e)
+        string last = "";
+        private void Watcher_Changes(object sender, FileSystemEventArgs e)
         {
-            WriteLine($"[*] {e.ChangeType}: \"{e.FullPath}\"");
+            string output = $"[*] {e.ChangeType}: \"{e.FullPath}\"";
+
+            if (last.Equals(output))
+                return;
+
+            Println(output);
+            last = output;
         }
 
-        protected void Watcher_Renamed(object sender, RenamedEventArgs e)
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            WriteLine($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
+            Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
         }
 
-        private void WriteLine(string text)
+        private void Println(string text)
         {
-            WriteLine(text, BRUSH_DEFAULT);
+            Println(text, BRUSH_DEFAULT);
         }
 
-        private void WriteLine(string text,SolidColorBrush brush)
+        private void Println(string text,SolidColorBrush brush)
         {
             Dispatcher.Invoke(new Action(() =>
             {
@@ -153,12 +165,12 @@ namespace Watcher_WPF
 
         private void ShowMessage(string message)
         {
-            WriteLine($"[+] {message}", BRUSH_MESSAGE);
+            Println($"[+] {message}", BRUSH_MESSAGE);
         }
 
         private void ShowError(Exception e)
         {
-            WriteLine($"[-] {e.Message}", BRUSH_ERROR);
+            Println($"[-] {e.Message}", BRUSH_ERROR);
         }
     }
 }
