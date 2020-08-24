@@ -18,7 +18,7 @@
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
-            <RichTextBox x:Name="richTextBox_main" Margin="0,40,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="Black" Foreground="White" TextChanged="RichTextBox_main_TextChanged" FontFamily="Consolas">
+        <RichTextBox x:Name="richTextBox_main" Margin="0,40,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="Black" Foreground="White" TextChanged="RichTextBox_main_TextChanged" FontFamily="Consolas">
             <FlowDocument LineHeight="1"/>
         </RichTextBox>
     </Grid>
