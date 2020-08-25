@@ -38,7 +38,7 @@ namespace Watcher_WPF
             watcher.AddDeletedEvent(Watcher_Changes);
             watcher.AddRenamedEvent(Watcher_Renamed);
 
-            ShowMessage(Application.ResourceAssembly.ToString());
+            PrintMsg(Application.ResourceAssembly.ToString());
         }
 
         private void Button_doit_Click(object sender, RoutedEventArgs e)
@@ -53,11 +53,11 @@ namespace Watcher_WPF
                     button_doit.Foreground = Brushes.Black;
                     textBox_path.IsEnabled = true;
 
-                    ShowMessage("watcher stopped...");
+                    PrintMsg("watcher stopped...");
                 }
                 catch (Exception ex)
                 {
-                    ShowError(ex);
+                    PrintErr(ex);
                 }
             }
             else
@@ -71,11 +71,11 @@ namespace Watcher_WPF
                     button_doit.Foreground = Brushes.Red;
                     textBox_path.IsEnabled = false;
 
-                    ShowMessage("watcher started...");
+                    PrintMsg("watcher started...");
                 }
                 catch (Exception ex)
                 {
-                    ShowError(ex);
+                    PrintErr(ex);
                 }
             }
         }
@@ -107,12 +107,12 @@ namespace Watcher_WPF
                     richTextBox_main.Document.ContentEnd).Text;
 
                     File.WriteAllText(path, content);
-                    ShowMessage($"saved log to \"{path}\"");
+                    PrintMsg($"saved log to \"{path}\"");
                 }
             }
             catch (Exception ex)
             {
-                ShowError(ex);
+                PrintErr(ex);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Watcher_WPF
         private void SetPath(string path)
         {
             watcher.Path = path;
-            ShowMessage($"set path: \"{watcher.Path}\"");
+            PrintMsg($"set path: \"{watcher.Path}\"");
         }
 
         string last = "";
@@ -160,11 +160,6 @@ namespace Watcher_WPF
             Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
         }
 
-        private void Println(string text)
-        {
-            Println(text, BRUSH_DEFAULT);
-        }
-
         private void Println(string text,SolidColorBrush brush)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -173,14 +168,11 @@ namespace Watcher_WPF
             }));
         }
 
-        private void ShowMessage(string message)
-        {
-            Println($"[+] {message}", BRUSH_MESSAGE);
-        }
+        private void Println(string text) => Println(text, BRUSH_DEFAULT);
 
-        private void ShowError(Exception e)
-        {
-            Println($"[-] {e.Message}", BRUSH_ERROR);
-        }
+        private void PrintMsg(string message) => Println($"[+] {message}", BRUSH_MESSAGE);
+
+        private void PrintErr(Exception e) => Println($"[-] {e.Message}", BRUSH_ERROR);
+
     }
 }
