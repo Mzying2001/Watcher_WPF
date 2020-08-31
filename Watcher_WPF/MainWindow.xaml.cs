@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -87,6 +88,7 @@ namespace Watcher_WPF
 
         private void OptionsMenu_Opened(object sender, RoutedEventArgs e)
         {
+            allow_edit.IsChecked = !richTextBox_main.IsReadOnly;
             topmost_switcher.IsChecked = Topmost;
         }
 
@@ -124,6 +126,16 @@ namespace Watcher_WPF
         private void Switch_Window_Topmost(object sender, RoutedEventArgs e)
         {
             Topmost = !Topmost;
+        }
+
+        private void Allow_edit_Click(object sender, RoutedEventArgs e)
+        {
+            richTextBox_main.IsReadOnly = !richTextBox_main.IsReadOnly;
+        }
+
+        private void View_source_code_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/Mzying2001/Watcher_WPF");
         }
 
         private void TextBox_path_KeyDown(object sender, KeyEventArgs e)
@@ -172,7 +184,6 @@ namespace Watcher_WPF
 
         private void PrintMsg(string message) => Println($"[+] {message}", BRUSH_MESSAGE);
 
-        private void PrintErr(Exception e) => Println($"[-] {e.Message}", BRUSH_ERROR);
-
+        private void PrintErr(Exception e) => Println($"[-] {e}", BRUSH_ERROR);
     }
 }
