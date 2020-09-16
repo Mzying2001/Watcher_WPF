@@ -24,7 +24,8 @@ namespace Watcher_WPF
     public partial class MainWindow : Window
     {
 
-        readonly WWatcher watcher;
+        readonly Watcher watcher;
+
         readonly SolidColorBrush BRUSH_DEFAULT = Brushes.LawnGreen;
         readonly SolidColorBrush BRUSH_MESSAGE = Brushes.Yellow;
         readonly SolidColorBrush BRUSH_ERROR = Brushes.Red;
@@ -33,11 +34,11 @@ namespace Watcher_WPF
         {
             InitializeComponent();
 
-            watcher = new WWatcher();
-            watcher.AddCreatedEvent(Watcher_Changes);
-            watcher.AddChangedEvent(Watcher_Changes);
-            watcher.AddDeletedEvent(Watcher_Changes);
-            watcher.AddRenamedEvent(Watcher_Renamed);
+            watcher = new Watcher(true, true, true);
+            watcher.Created += Watcher_Changes;
+            watcher.Changed += Watcher_Changes;
+            watcher.Deleted += Watcher_Changes;
+            watcher.Renamed += Watcher_Renamed;
 
             PrintMsg(Application.ResourceAssembly.ToString());
         }
@@ -155,7 +156,7 @@ namespace Watcher_WPF
             PrintMsg($"set path: \"{watcher.Path}\"");
         }
 
-        string last = "";
+        string last = string.Empty;
         private void Watcher_Changes(object sender, FileSystemEventArgs e)
         {
             string output = $"[*] {e.ChangeType}: \"{e.FullPath}\"";
@@ -180,10 +181,19 @@ namespace Watcher_WPF
             }));
         }
 
-        private void Println(string text) => Println(text, BRUSH_DEFAULT);
+        private void Println(string text)
+        {
+            Println(text, BRUSH_DEFAULT);
+        }
 
-        private void PrintMsg(string message) => Println($"[+] {message}", BRUSH_MESSAGE);
+        private void PrintMsg(string message)
+        {
+            Println($"[+] {message}", BRUSH_MESSAGE);
+        }
 
-        private void PrintErr(Exception e) => Println($"[-] {e}", BRUSH_ERROR);
+        private void PrintErr(Exception e)
+        {
+            Println($"[-] {e}", BRUSH_ERROR);
+        }
     }
 }
