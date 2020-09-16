@@ -45,40 +45,24 @@ namespace Watcher_WPF
 
         private void Button_doit_Click(object sender, RoutedEventArgs e)
         {
-            if (watcher.IsStarted)
-            {//stop
-                try
-                {
-                    watcher.IsStarted = false;
-
-                    button_doit.Content = "start";
-                    button_doit.Foreground = Brushes.Black;
-                    textBox_path.IsEnabled = true;
-
-                    PrintMsg("watcher stopped...");
-                }
-                catch (Exception ex)
-                {
-                    PrintErr(ex);
-                }
-            }
-            else
-            {//start
-                try
+            try
+            {
+                if (!watcher.IsStarted)
                 {
                     SetPath(textBox_path.Text.Trim());
-                    watcher.IsStarted = true;
-
-                    button_doit.Content = "stop";
-                    button_doit.Foreground = Brushes.Red;
-                    textBox_path.IsEnabled = false;
-
-                    PrintMsg("watcher started...");
                 }
-                catch (Exception ex)
-                {
-                    PrintErr(ex);
-                }
+
+                watcher.IsStarted = !watcher.IsStarted;
+
+                button_doit.Content    = watcher.IsStarted ? "stop" : "start";
+                button_doit.Foreground = watcher.IsStarted ? Brushes.Red : Brushes.Black;
+                textBox_path.IsEnabled = !watcher.IsStarted;
+
+                PrintMsg(watcher.IsStarted ? "watcher started..." : "watcher stopped...");
+            }
+            catch (Exception ex)
+            {
+                PrintErr(ex);
             }
         }
 
