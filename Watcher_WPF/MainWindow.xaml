@@ -16,7 +16,7 @@
                     <MenuItem Header="save logs" Click="SaveLogs"/>
                     <MenuItem Header="clear logs" Click="ClearLogs"/>
                     <Separator/>
-                    <MenuItem x:Name="allow_edit" Header="allow edit" Click="Allow_edit_Click"/>
+                    <MenuItem x:Name="allow_edit" Header="allow editing" Click="Allow_edit_Click"/>
                     <MenuItem x:Name="topmost_switcher" Header="window top-most" Click="Switch_Window_Topmost"/>
                     <Separator/>
                     <MenuItem Header="view source code" Click="View_source_code_Click"/>
