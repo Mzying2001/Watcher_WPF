@@ -28,7 +28,7 @@ namespace Watcher_WPF
 
         readonly SolidColorBrush BRUSH_DEFAULT = Brushes.LawnGreen;
         readonly SolidColorBrush BRUSH_MESSAGE = Brushes.Yellow;
-        readonly SolidColorBrush BRUSH_ERROR = Brushes.Red;
+        readonly SolidColorBrush BRUSH_ERROR   = Brushes.Red;
 
         public MainWindow()
         {
@@ -41,6 +41,14 @@ namespace Watcher_WPF
             watcher.Renamed += Watcher_Renamed;
 
             PrintMsg(Application.ResourceAssembly.ToString());
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(watcher.IsStarted)
+            {
+                e.Cancel = MessageBox.Show("Watcher is working, are you sure to close?", "Oh!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No;
+            }
         }
 
         private void Button_doit_Click(object sender, RoutedEventArgs e)
@@ -131,7 +139,8 @@ namespace Watcher_WPF
 
         private void RichTextBox_main_TextChanged(object sender, TextChangedEventArgs e)
         {
-            richTextBox_main.ScrollToEnd();
+            if (richTextBox_main.IsReadOnly)
+                richTextBox_main.ScrollToEnd();
         }
 
         private void SetPath(string path)
@@ -179,5 +188,6 @@ namespace Watcher_WPF
         {
             Println($"[-] {e}", BRUSH_ERROR);
         }
+
     }
 }

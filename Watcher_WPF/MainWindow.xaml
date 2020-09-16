@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watcher_WPF"
         mc:Ignorable="d"
-        Title="Watcher" Height="450" Width="800" MinWidth="500" MinHeight="300">
+        Title="Watcher" Height="450" Width="800" MinWidth="500" MinHeight="300" Closing="Window_Closing">
     <Grid>
         <Label Content="path：" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_path" Height="23" Margin="58,12,170,0" TextWrapping="NoWrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Text="C:\" KeyDown="TextBox_path_KeyDown"/>
