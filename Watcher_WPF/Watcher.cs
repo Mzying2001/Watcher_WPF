@@ -9,15 +9,15 @@ namespace Watcher_WPF
 {
     class Watcher : FileSystemWatcher
     {
-        public bool NotifyFilter_Size;
-        public bool NotifyFilter_FileName;
-        public bool NotifyFilter_DirectoryName;
+        public bool Filter_Size;
+        public bool Filter_FileName;
+        public bool Filter_DirectoryName;
 
-        public Watcher(bool NotifyFilter_Size, bool NotifyFilter_FileName, bool NotifyFilter_DirectoryName)
+        public Watcher(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName)
         {
-            this.NotifyFilter_Size = NotifyFilter_Size;
-            this.NotifyFilter_FileName = NotifyFilter_FileName;
-            this.NotifyFilter_DirectoryName = NotifyFilter_DirectoryName;
+            this.Filter_Size = Filter_Size;
+            this.Filter_FileName = Filter_FileName;
+            this.Filter_DirectoryName = Filter_DirectoryName;
 
             IncludeSubdirectories = true;
         }
@@ -51,7 +51,7 @@ namespace Watcher_WPF
             {
                 if (value)
                 {
-                    NotifyFilter = GetFilter(NotifyFilter_Size, NotifyFilter_FileName, NotifyFilter_DirectoryName);
+                    NotifyFilter = GetFilter(Filter_Size, Filter_FileName, Filter_DirectoryName);
                 }
                 base.EnableRaisingEvents = value;
             }
@@ -67,17 +67,17 @@ namespace Watcher_WPF
             }
         }
 
-        public static NotifyFilters GetFilter(bool NotifyFilter_Size, bool NotifyFilter_FileName, bool NotifyFilter_DirectoryName)
+        public static NotifyFilters GetFilter(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName)
         {
             NotifyFilters nf = new NotifyFilters();
 
-            if (NotifyFilter_Size)
+            if (Filter_Size)
                 nf |= NotifyFilters.Size;
 
-            if (NotifyFilter_FileName)
+            if (Filter_FileName)
                 nf |= NotifyFilters.FileName;
 
-            if (NotifyFilter_DirectoryName)
+            if (Filter_DirectoryName)
                 nf |= NotifyFilters.DirectoryName;
 
             return nf;

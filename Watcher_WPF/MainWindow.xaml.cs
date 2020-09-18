@@ -166,7 +166,7 @@ namespace Watcher_WPF
             Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
         }
 
-        private void Println(string text,SolidColorBrush brush)
+        private void Println(string text, SolidColorBrush brush)
         {
             Dispatcher.Invoke(new Action(() =>
             {
