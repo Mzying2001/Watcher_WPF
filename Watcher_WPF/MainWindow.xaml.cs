@@ -24,15 +24,23 @@ namespace Watcher_WPF
     public partial class MainWindow : Window
     {
 
-        readonly Watcher watcher;
+        Filter filter;
 
-        readonly SolidColorBrush BRUSH_DEFAULT = Brushes.LawnGreen;
-        readonly SolidColorBrush BRUSH_MESSAGE = Brushes.Yellow;
-        readonly SolidColorBrush BRUSH_ERROR   = Brushes.Red;
+        readonly Watcher watcher;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            filter = new Filter()
+            {
+                Size = true,
+                FileName = true,
+                DirectoryName = true,
+
+                WhiteList = new List<string>(),
+                BlackList = new List<string>(),
+            };
 
             watcher = new Watcher(true, true, true);
             watcher.Created += Watcher_Changes;
@@ -83,6 +91,7 @@ namespace Watcher_WPF
         {
             allow_edit.IsChecked = !richTextBox_main.IsReadOnly;
             topmost_switcher.IsChecked = Topmost;
+            filter_setter.IsEnabled = !watcher.IsStarted;
         }
 
         private void SaveLogs(object sender, RoutedEventArgs e)
@@ -128,7 +137,22 @@ namespace Watcher_WPF
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            new FilterWindow() { Owner = this }.ShowDialog();
+            Filter? f = new FilterWindow(filter) { Owner = this }.ShowDialog();
+
+            if (f.HasValue)
+            {
+                filter = (Filter)f;
+
+                watcher.Filter_Size = filter.Size;
+                watcher.Filter_FileName = filter.FileName;
+                watcher.Filter_DirectoryName = filter.DirectoryName;
+
+                PrintMsg(
+                    $"set Filter: Size={filter.Size}, FileName={filter.FileName}, DirectoryName={filter.DirectoryName}" +
+                    ((filter.WhiteList.Count == 0) ? null : $", WhiteList.Count={filter.WhiteList.Count}") +
+                    ((filter.BlackList.Count == 0) ? null : $", BlackList.Count={filter.BlackList.Count}")
+                    );
+            }
         }
 
         private void View_source_code_Click(object sender, RoutedEventArgs e)
@@ -157,18 +181,38 @@ namespace Watcher_WPF
         string last = string.Empty;
         private void Watcher_Changes(object sender, FileSystemEventArgs e)
         {
-            string output = $"[*] {e.ChangeType}: \"{e.FullPath}\"";
+            try
+            {
+                if (IsIllegal(e.FullPath))
+                    return;
 
-            if (last.Equals(output))
-                return;
+                string output = $"[*] {e.ChangeType}: \"{e.FullPath}\"";
 
-            Println(output);
-            last = output;
+                if (last.Equals(output))
+                    return;
+
+                Println(output);
+                last = output;
+            }
+            catch (Exception ex)
+            {
+                PrintErr(ex);
+            }
         }
 
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
+            try
+            {
+                if (IsIllegal(e.OldFullPath) || IsIllegal(e.FullPath))
+                    return;
+
+                Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
+            }
+            catch(Exception ex)
+            {
+                PrintErr(ex);
+            }
         }
 
         private void Println(string text, SolidColorBrush brush)
@@ -181,18 +225,34 @@ namespace Watcher_WPF
 
         private void Println(string text)
         {
-            Println(text, BRUSH_DEFAULT);
+            Println(text, Brushes.LawnGreen);
         }
 
         private void PrintMsg(string message)
         {
-            Println($"[+] {message}", BRUSH_MESSAGE);
+            Println($"[+] {message}", Brushes.Yellow);
         }
 
         private void PrintErr(Exception e)
         {
-            Println($"[-] {e}", BRUSH_ERROR);
+            Println($"[-] {e}", Brushes.Red);
         }
 
+        private bool IsIllegal(string value)
+        {
+            foreach(string item in filter.WhiteList)
+            {
+                if (!value.Contains(item))
+                    return true;
+            }
+
+            foreach (string item in filter.BlackList)
+            {
+                if (value.Contains(item))
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
