@@ -7,19 +7,21 @@
         mc:Ignorable="d"
         Title="Watcher" Height="450" Width="800" MinWidth="500" MinHeight="300" Closing="Window_Closing">
     <Grid>
-        <Label Content="path：" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
+        <Label Content="Path：" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_path" Height="23" Margin="58,12,170,0" TextWrapping="NoWrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Text="C:\" KeyDown="TextBox_path_KeyDown"/>
-        <Button x:Name="button_doit" Content="start" HorizontalAlignment="Right" Margin="0,12,90,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_doit_Click"/>
-        <Button x:Name="button_options" Content="options" HorizontalAlignment="Right" Margin="0,12,10,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_options_Click">
+        <Button x:Name="button_doit" Content="Start" HorizontalAlignment="Right" Margin="0,12,90,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_doit_Click"/>
+        <Button x:Name="button_options" Content="Options" HorizontalAlignment="Right" Margin="0,12,10,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.914,-0.702" Height="23" Click="Button_options_Click">
             <Button.ContextMenu>
                 <ContextMenu x:Name="options" Opened="OptionsMenu_Opened">
-                    <MenuItem Header="save logs" Click="SaveLogs"/>
-                    <MenuItem Header="clear logs" Click="ClearLogs"/>
+                    <MenuItem Header="Save logs" Click="SaveLogs"/>
+                    <MenuItem Header="Clear logs" Click="ClearLogs"/>
                     <Separator/>
-                    <MenuItem x:Name="allow_edit" Header="allow editing" Click="Allow_edit_Click"/>
-                    <MenuItem x:Name="topmost_switcher" Header="window top-most" Click="Switch_Window_Topmost"/>
+                    <MenuItem x:Name="allow_edit" Header="Allow editing" Click="Allow_edit_Click"/>
+                    <MenuItem x:Name="topmost_switcher" Header="Window top-most" Click="Switch_Window_Topmost"/>
                     <Separator/>
-                    <MenuItem Header="view source code" Click="View_source_code_Click"/>
+                    <MenuItem Header="Filter" Click="MenuItem_Click"/>
+                    <Separator/>
+                    <MenuItem Header="View source code" Click="View_source_code_Click"/>
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>

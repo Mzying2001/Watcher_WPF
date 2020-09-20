@@ -126,6 +126,11 @@ namespace Watcher_WPF
             richTextBox_main.IsReadOnly = !richTextBox_main.IsReadOnly;
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new FilterWindow() { Owner = this }.ShowDialog();
+        }
+
         private void View_source_code_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/Mzying2001/Watcher_WPF");
