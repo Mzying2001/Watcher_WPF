@@ -59,6 +59,20 @@ namespace Watcher_WPF
             }
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)) && e.KeyboardDevice.IsKeyDown(Key.S))
+            {
+                //Ctrl+S
+                SaveLogs(null, null);
+            }
+            else if ((e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)) && e.KeyboardDevice.IsKeyDown(Key.D))
+            {
+                //Ctrl+D
+                ClearLogs(null, null);
+            }
+        }
+
         private void Button_doit_Click(object sender, RoutedEventArgs e)
         {
             try
