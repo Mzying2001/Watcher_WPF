@@ -179,6 +179,7 @@ namespace Watcher_WPF
         private void Include_subdir_Click(object sender, RoutedEventArgs e)
         {
             watcher.IncludeSubdirectories = !watcher.IncludeSubdirectories;
+            PrintMsg($"IncludeSubdirectories={watcher.IncludeSubdirectories}");
         }
 
         private void View_source_code_Click(object sender, RoutedEventArgs e)
