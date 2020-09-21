@@ -22,6 +22,15 @@ namespace Watcher_WPF
             IncludeSubdirectories = true;
         }
 
+        public Watcher(Filter filter)
+        {
+            Filter_Size = filter.Size;
+            Filter_FileName = filter.FileName;
+            Filter_DirectoryName = filter.DirectoryName;
+
+            IncludeSubdirectories = true;
+        }
+
         public new string Path
         {
             get => base.Path;

@@ -42,7 +42,7 @@ namespace Watcher_WPF
                 BlackList = new List<string>(),
             };
 
-            watcher = new Watcher(true, true, true);
+            watcher = new Watcher(filter);
             watcher.Created += Watcher_Changes;
             watcher.Changed += Watcher_Changes;
             watcher.Deleted += Watcher_Changes;
