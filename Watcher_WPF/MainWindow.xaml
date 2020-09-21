@@ -19,7 +19,8 @@
                     <MenuItem x:Name="allow_edit" Header="Allow editing" Click="Allow_edit_Click"/>
                     <MenuItem x:Name="topmost_switcher" Header="Window top-most" Click="Switch_Window_Topmost"/>
                     <Separator/>
-                    <MenuItem x:Name="filter_setter" Header="Filter" Click="MenuItem_Click"/>
+                    <MenuItem x:Name="filter_setter" Header="Filter" Click="Filter_setter_Click"/>
+                    <MenuItem x:Name="include_subdir" Header="Include subdirectories" Click="Include_subdir_Click"/>
                     <Separator/>
                     <MenuItem Header="View source code" Click="View_source_code_Click"/>
                 </ContextMenu>

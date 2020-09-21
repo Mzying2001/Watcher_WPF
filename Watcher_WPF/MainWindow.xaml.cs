@@ -61,15 +61,19 @@ namespace Watcher_WPF
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)) && e.KeyboardDevice.IsKeyDown(Key.S))
+            //Ctrl
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {
-                //Ctrl+S
-                SaveLogs(null, null);
-            }
-            else if ((e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)) && e.KeyboardDevice.IsKeyDown(Key.D))
-            {
-                //Ctrl+D
-                ClearLogs(null, null);
+                if (e.KeyboardDevice.IsKeyDown(Key.S))
+                {
+                    //Ctrl+S
+                    SaveLogs(null, null);
+                }
+                else if (e.KeyboardDevice.IsKeyDown(Key.D))
+                {
+                    //Ctrl+D
+                    ClearLogs(null, null);
+                }
             }
         }
 
@@ -105,7 +109,10 @@ namespace Watcher_WPF
         {
             allow_edit.IsChecked = !richTextBox_main.IsReadOnly;
             topmost_switcher.IsChecked = Topmost;
+
             filter_setter.IsEnabled = !watcher.IsStarted;
+            include_subdir.IsEnabled = !watcher.IsStarted;
+            include_subdir.IsChecked = watcher.IncludeSubdirectories;
         }
 
         private void SaveLogs(object sender, RoutedEventArgs e)
@@ -149,7 +156,7 @@ namespace Watcher_WPF
             richTextBox_main.IsReadOnly = !richTextBox_main.IsReadOnly;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Filter_setter_Click(object sender, RoutedEventArgs e)
         {
             Filter? f = new FilterWindow(filter) { Owner = this }.ShowDialog();
 
@@ -167,6 +174,11 @@ namespace Watcher_WPF
                     ((filter.BlackList.Count == 0) ? null : $", BlackList.Count={filter.BlackList.Count}")
                     );
             }
+        }
+
+        private void Include_subdir_Click(object sender, RoutedEventArgs e)
+        {
+            watcher.IncludeSubdirectories = !watcher.IncludeSubdirectories;
         }
 
         private void View_source_code_Click(object sender, RoutedEventArgs e)
