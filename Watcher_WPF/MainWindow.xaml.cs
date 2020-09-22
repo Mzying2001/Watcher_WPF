@@ -24,7 +24,7 @@ namespace Watcher_WPF
     public partial class MainWindow : Window
     {
 
-        Filter filter;
+        Filters filter;
 
         readonly Watcher watcher;
 
@@ -32,14 +32,13 @@ namespace Watcher_WPF
         {
             InitializeComponent();
 
-            filter = new Filter()
+            filter = new Filters()
             {
                 Size = true,
                 FileName = true,
                 DirectoryName = true,
 
-                WhiteList = new List<string>(),
-                BlackList = new List<string>(),
+                Filter = "*.*",
             };
 
             watcher = new Watcher(filter);
@@ -158,21 +157,19 @@ namespace Watcher_WPF
 
         private void Filter_setter_Click(object sender, RoutedEventArgs e)
         {
-            Filter? f = new FilterWindow(filter) { Owner = this }.ShowDialog();
+            Filters? f = new FilterWindow(filter) { Owner = this }.ShowDialog();
 
             if (f.HasValue)
             {
-                filter = (Filter)f;
+                filter = (Filters)f;
 
                 watcher.Filter_Size = filter.Size;
                 watcher.Filter_FileName = filter.FileName;
                 watcher.Filter_DirectoryName = filter.DirectoryName;
 
-                PrintMsg(
-                    $"set Filter: Size={filter.Size}, FileName={filter.FileName}, DirectoryName={filter.DirectoryName}" +
-                    ((filter.WhiteList.Count == 0) ? null : $", WhiteList.Count={filter.WhiteList.Count}") +
-                    ((filter.BlackList.Count == 0) ? null : $", BlackList.Count={filter.BlackList.Count}")
-                    );
+                watcher.Filter = filter.Filter;
+
+                PrintMsg($"set Filter: Size={filter.Size}, FileName={filter.FileName}, DirectoryName={filter.DirectoryName}, Filter=\"{filter.Filter}\"");
             }
         }
 
@@ -210,9 +207,6 @@ namespace Watcher_WPF
         {
             try
             {
-                if (IsIllegal(e.FullPath))
-                    return;
-
                 string output = $"[*] {e.ChangeType}: \"{e.FullPath}\"";
 
                 if (last.Equals(output))
@@ -231,9 +225,6 @@ namespace Watcher_WPF
         {
             try
             {
-                if (IsIllegal(e.OldFullPath) || IsIllegal(e.FullPath))
-                    return;
-
                 Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
             }
             catch(Exception ex)
@@ -263,23 +254,6 @@ namespace Watcher_WPF
         private void PrintErr(Exception e)
         {
             Println($"[-] {e}", Brushes.Red);
-        }
-
-        private bool IsIllegal(string value)
-        {
-            foreach(string item in filter.WhiteList)
-            {
-                if (!value.Contains(item))
-                    return true;
-            }
-
-            foreach (string item in filter.BlackList)
-            {
-                if (value.Contains(item))
-                    return true;
-            }
-
-            return false;
         }
     }
 }

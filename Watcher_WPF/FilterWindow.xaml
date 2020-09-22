@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watcher_WPF"
         mc:Ignorable="d"
-        Title="" Height="420" Width="350" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterOwner">
+        Title="" Height="300" Width="350" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterOwner">
     <Grid>
         <Button Content="OK" HorizontalAlignment="Right" Margin="0,0,9.6,10.4" VerticalAlignment="Bottom" Width="75" Click="Button_OK_Click"/>
         <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,89.6,10.4" VerticalAlignment="Bottom" Width="75" Click="Button_Cancel_Click"/>
@@ -13,11 +13,8 @@
         <CheckBox x:Name="CheckBox_Size" Content="Size" HorizontalAlignment="Left" Margin="35,65,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox_FileName" Content="FileName" HorizontalAlignment="Left" Margin="100,65,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox_DirectoryName" Content="DirectoryName" HorizontalAlignment="Left" Margin="190,65,0,0" VerticalAlignment="Top"/>
-        <TextBlock Margin="25,115,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Text="WhiteList"/>
-        <TextBox x:Name="TextBox_WhiteList" HorizontalAlignment="Left" Height="23" Margin="35,151,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="261" VerticalContentAlignment="Center"/>
-        <TextBlock Margin="25,205,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"><Run Text="Black"/><Run Text="List"/></TextBlock>
-        <TextBox x:Name="TextBox_BlackBox" HorizontalAlignment="Left" Height="23" Margin="35,240,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="261" VerticalContentAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Margin="35,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" Foreground="SlateGray"><Run Text="Tip: If the "/><Run Text="output "/><Run Text="does not contain keywords in the whitelist or "/><Run Text="contain keywords in the "/><Run Text="blacklist, "/><Run Text="it "/><Run Text="will be cancelled"/><Run Text="."/></TextBlock>
+        <TextBlock Margin="25,115,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Text="Filter"/>
+        <TextBox x:Name="TextBox_Filter" HorizontalAlignment="Left" Height="23" Margin="35,151,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="261" VerticalContentAlignment="Center"/>
 
     </Grid>
 </Window>
