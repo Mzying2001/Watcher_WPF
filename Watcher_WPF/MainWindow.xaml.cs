@@ -87,7 +87,7 @@ namespace Watcher_WPF
 
                 watcher.IsStarted = !watcher.IsStarted;
 
-                button_doit.Content    = watcher.IsStarted ? "stop" : "start";
+                button_doit.Content    = watcher.IsStarted ? "Stop" : "Start";
                 button_doit.Foreground = watcher.IsStarted ? Brushes.Red : Brushes.Black;
                 textBox_path.IsEnabled = !watcher.IsStarted;
 
