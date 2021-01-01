@@ -24,9 +24,9 @@ namespace Watcher_WPF
     public partial class MainWindow : Window
     {
 
-        Filters filter;
+        private Filters filter;
 
-        readonly Watcher watcher;
+        private readonly Watcher watcher;
 
         public MainWindow()
         {
@@ -52,9 +52,10 @@ namespace Watcher_WPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(watcher.IsStarted)
+            if (watcher.IsStarted)
             {
-                e.Cancel = MessageBox.Show("Watcher is working, are you sure to close?", "Oh!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No;
+                e.Cancel = MessageBox.Show("Watcher is working, are you sure to close?", "Oh!",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No;
             }
         }
 
@@ -87,7 +88,7 @@ namespace Watcher_WPF
 
                 watcher.IsStarted = !watcher.IsStarted;
 
-                button_doit.Content    = watcher.IsStarted ? "Stop" : "Start";
+                button_doit.Content = watcher.IsStarted ? "Stop" : "Start";
                 button_doit.Foreground = watcher.IsStarted ? Brushes.Red : Brushes.Black;
                 textBox_path.IsEnabled = !watcher.IsStarted;
 
@@ -169,7 +170,8 @@ namespace Watcher_WPF
 
                 watcher.Filter = filter.Filter;
 
-                PrintMsg($"set Filter: Size={filter.Size}, FileName={filter.FileName}, DirectoryName={filter.DirectoryName}, Filter=\"{filter.Filter}\"");
+                PrintMsg($"set Filter: Size={filter.Size}, FileName={filter.FileName}, " +
+                    $"DirectoryName={filter.DirectoryName}, Filter=\"{filter.Filter}\"");
             }
         }
 
@@ -202,7 +204,7 @@ namespace Watcher_WPF
             PrintMsg($"set path: \"{watcher.Path}\"");
         }
 
-        string last = string.Empty;
+        private string last = string.Empty;
         private void Watcher_Changes(object sender, FileSystemEventArgs e)
         {
             try
@@ -227,19 +229,16 @@ namespace Watcher_WPF
             {
                 Println($"[*] {e.ChangeType}: \"{e.OldFullPath}\" -> \"{e.FullPath}\"");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PrintErr(ex);
             }
         }
 
-        private void Println(string text, SolidColorBrush brush)
+        private void Println(string text, SolidColorBrush brush) => Dispatcher.Invoke(() =>
         {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                richTextBox_main.Document.Blocks.Add(new Paragraph(new Run(text) { Foreground = brush }));
-            }));
-        }
+            richTextBox_main.Document.Blocks.Add(new Paragraph(new Run(text) { Foreground = brush }));
+        });
 
         private void Println(string text)
         {
