@@ -32,7 +32,7 @@
             </TextBlock>
 
             <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBox_path" KeyDown="TextBox_path_KeyDown">
-                <TextBox.Margin>5,5,0,5</TextBox.Margin>
+                <TextBox.Margin>0,5,5,5</TextBox.Margin>
                 <TextBox.Text>C:\</TextBox.Text>
                 <TextBox.TextWrapping>NoWrap</TextBox.TextWrapping>
                 <TextBox.VerticalContentAlignment>Center</TextBox.VerticalContentAlignment>
@@ -40,12 +40,12 @@
 
             <Button Grid.Row="0" Grid.Column="2" x:Name="button_doit" Click="Button_doit_Click">
                 <Button.Content>Start</Button.Content>
-                <Button.Margin>5,5,0,5</Button.Margin>
+                <Button.Margin>0,5,5,5</Button.Margin>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="3" x:Name="button_options" Click="Button_options_Click">
                 <Button.Content>Options</Button.Content>
-                <Button.Margin>5,5,5,5</Button.Margin>
+                <Button.Margin>0,5,5,5</Button.Margin>
                 <Button.ContextMenu>
                     <ContextMenu x:Name="options" Opened="OptionsMenu_Opened">
                         <MenuItem Header="Save logs" Click="SaveLogs" InputGestureText="Ctrl+S"/>
