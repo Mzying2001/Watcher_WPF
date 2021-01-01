@@ -2,6 +2,6 @@
 
 A simple GUI of FileSystemWatcher (WPF)
 
-![MainWindow](https://raw.githubusercontent.com/Mzying2001/Watcher_WPF/master/images/Main.png)
+![img](https://img.wenhairu.com/images/2021/01/01/D5Ppq.png)
 
-![FilterWindow](https://raw.githubusercontent.com/Mzying2001/Watcher_WPF/master/images/Filter.png)
+![img](https://img.wenhairu.com/images/2021/01/01/D5ZIX.png)
