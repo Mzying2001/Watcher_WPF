@@ -9,11 +9,11 @@ namespace Watcher_WPF
 {
     class Watcher : FileSystemWatcher
     {
-        public bool Filter_Size;
-        public bool Filter_FileName;
-        public bool Filter_DirectoryName;
+        public bool Filter_Size { get; set; }
+        public bool Filter_FileName { get; set; }
+        public bool Filter_DirectoryName { get; set; }
 
-        public Watcher(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName)
+        public Watcher(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName) : base()
         {
             this.Filter_Size = Filter_Size;
             this.Filter_FileName = Filter_FileName;
@@ -22,14 +22,9 @@ namespace Watcher_WPF
             IncludeSubdirectories = true;
         }
 
-        public Watcher(Filters filter)
-        {
-            Filter_Size = filter.Size;
-            Filter_FileName = filter.FileName;
-            Filter_DirectoryName = filter.DirectoryName;
-
-            IncludeSubdirectories = true;
-        }
+        public Watcher(Filters filter) :
+            this(filter.Size, filter.FileName, filter.DirectoryName)
+        { }
 
         public new string Path
         {
