@@ -24,24 +24,20 @@ namespace Watcher_WPF
     public partial class MainWindow : Window
     {
 
-        private Filters filter;
-
         private readonly Watcher watcher;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            filter = new Filters()
+            var nf = new NFilters()
             {
                 Size = true,
                 FileName = true,
                 DirectoryName = true,
-
-                Filter = "*.*",
             };
 
-            watcher = new Watcher(filter);
+            watcher = new Watcher(nf);
             watcher.Created += Watcher_Changes;
             watcher.Changed += Watcher_Changes;
             watcher.Deleted += Watcher_Changes;
@@ -88,7 +84,7 @@ namespace Watcher_WPF
 
                 watcher.IsStarted = !watcher.IsStarted;
 
-                button_doit.Content = watcher.IsStarted ? "Stop" : "Start";
+                button_doit.Content    = watcher.IsStarted ? "Stop" : "Start";
                 button_doit.Foreground = watcher.IsStarted ? Brushes.Red : Brushes.Black;
                 textBox_path.IsEnabled = !watcher.IsStarted;
 
@@ -110,7 +106,7 @@ namespace Watcher_WPF
             allow_edit.IsChecked = !richTextBox_main.IsReadOnly;
             topmost_switcher.IsChecked = Topmost;
 
-            filter_setter.IsEnabled = !watcher.IsStarted;
+            filter_setter.IsEnabled  = !watcher.IsStarted;
             include_subdir.IsEnabled = !watcher.IsStarted;
             include_subdir.IsChecked = watcher.IncludeSubdirectories;
         }
@@ -158,20 +154,15 @@ namespace Watcher_WPF
 
         private void Filter_setter_Click(object sender, RoutedEventArgs e)
         {
-            Filters? f = new FilterWindow(filter) { Owner = this }.ShowDialog();
+            var tmp = new FilterWindow(watcher.NFilters, watcher.Filter) { Owner = this }.ShowDialog();
 
-            if (f.HasValue)
+            if (tmp is Fdr fdr)
             {
-                filter = (Filters)f;
+                watcher.Filter = fdr.Filter;
+                watcher.NFilters = fdr.Nfilters;
 
-                watcher.Filter_Size = filter.Size;
-                watcher.Filter_FileName = filter.FileName;
-                watcher.Filter_DirectoryName = filter.DirectoryName;
-
-                watcher.Filter = filter.Filter;
-
-                PrintMsg($"set Filter: Size={filter.Size}, FileName={filter.FileName}, " +
-                    $"DirectoryName={filter.DirectoryName}, Filter=\"{filter.Filter}\"");
+                PrintMsg($"set Filter: Size={watcher.NFilters.Size}, FileName={watcher.NFilters.FileName}, " +
+                    $"DirectoryName={watcher.NFilters.DirectoryName}, Filter=\"{watcher.Filter}\"");
             }
         }
 

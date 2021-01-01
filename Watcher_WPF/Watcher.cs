@@ -7,24 +7,33 @@ using System.IO;
 
 namespace Watcher_WPF
 {
+
+    /// <summary>
+    /// NotifyFilters
+    /// </summary>
+    public struct NFilters
+    {
+        public bool Size { get; set; }
+        public bool FileName { get; set; }
+        public bool DirectoryName { get; set; }
+
+        public NFilters(bool size, bool fileName, bool directoryName)
+        {
+            Size = size;
+            FileName = fileName;
+            DirectoryName = directoryName;
+        }
+    }
+
     class Watcher : FileSystemWatcher
     {
-        public bool Filter_Size { get; set; }
-        public bool Filter_FileName { get; set; }
-        public bool Filter_DirectoryName { get; set; }
+        public NFilters NFilters { get; set; }
 
-        public Watcher(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName) : base()
+        public Watcher(NFilters filter) : base()
         {
-            this.Filter_Size = Filter_Size;
-            this.Filter_FileName = Filter_FileName;
-            this.Filter_DirectoryName = Filter_DirectoryName;
-
+            NFilters = filter;
             IncludeSubdirectories = true;
         }
-
-        public Watcher(Filters filter) :
-            this(filter.Size, filter.FileName, filter.DirectoryName)
-        { }
 
         public new string Path
         {
@@ -55,7 +64,7 @@ namespace Watcher_WPF
             {
                 if (value)
                 {
-                    NotifyFilter = GetFilter(Filter_Size, Filter_FileName, Filter_DirectoryName);
+                    NotifyFilter = GetFilter(NFilters);
                 }
                 base.EnableRaisingEvents = value;
             }
@@ -71,17 +80,17 @@ namespace Watcher_WPF
             }
         }
 
-        public static NotifyFilters GetFilter(bool Filter_Size, bool Filter_FileName, bool Filter_DirectoryName)
+        public static NotifyFilters GetFilter(NFilters f)
         {
             NotifyFilters nf = new NotifyFilters();
 
-            if (Filter_Size)
+            if (f.Size)
                 nf |= NotifyFilters.Size;
 
-            if (Filter_FileName)
+            if (f.FileName)
                 nf |= NotifyFilters.FileName;
 
-            if (Filter_DirectoryName)
+            if (f.DirectoryName)
                 nf |= NotifyFilters.DirectoryName;
 
             return nf;

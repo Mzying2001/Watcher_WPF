@@ -15,13 +15,13 @@ using System.Windows.Shapes;
 namespace Watcher_WPF
 {
 
-    public struct Filters
+    /// <summary>
+    /// FilterWindow dialog result
+    /// </summary>
+    public struct Fdr
     {
-        public bool Size;
-        public bool FileName;
-        public bool DirectoryName;
-
-        public string Filter;
+        public string Filter { get; set; }
+        public NFilters Nfilters { get; set; }
     }
 
     /// <summary>
@@ -30,20 +30,20 @@ namespace Watcher_WPF
     public partial class FilterWindow : Window
     {
 
-        public new Filters? DialogResult = null;
+        public new Fdr? DialogResult { get; set; }
 
-        public FilterWindow(Filters f)
+        public FilterWindow(NFilters nfilters, string filter)
         {
             InitializeComponent();
 
-            CheckBox_Size.IsChecked = f.Size;
-            CheckBox_FileName.IsChecked = f.FileName;
-            CheckBox_DirectoryName.IsChecked = f.DirectoryName;
+            CheckBox_Size.IsChecked = nfilters.Size;
+            CheckBox_FileName.IsChecked = nfilters.FileName;
+            CheckBox_DirectoryName.IsChecked = nfilters.DirectoryName;
 
-            TextBox_Filter.Text = f.Filter;
+            TextBox_Filter.Text = filter;
         }
 
-        public new Filters? ShowDialog()
+        public new Fdr? ShowDialog()
         {
             base.ShowDialog();
             return DialogResult;
@@ -51,13 +51,17 @@ namespace Watcher_WPF
 
         private void Button_OK_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = new Filters()
+            NFilters nf = new NFilters
             {
                 Size = (bool)CheckBox_Size.IsChecked,
                 FileName = (bool)CheckBox_FileName.IsChecked,
                 DirectoryName = (bool)CheckBox_DirectoryName.IsChecked,
+            };
 
+            DialogResult = new Fdr()
+            {
                 Filter = TextBox_Filter.Text,
+                Nfilters = nf,
             };
 
             Close();
