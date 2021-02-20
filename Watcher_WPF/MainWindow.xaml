@@ -5,7 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watcher_WPF"
         mc:Ignorable="d"
-        Title="Watcher" Height="450" Width="800" MinWidth="500" MinHeight="300" Closing="Window_Closing" KeyDown="Window_KeyDown">
+        
+        Title="Watcher"
+        Height="450"
+        Width="800"
+        MinWidth="500"
+        MinHeight="300"
+        Closing="Window_Closing"
+        KeyDown="Window_KeyDown">
+
     <Grid>
 
         <!--define rows-->
@@ -25,39 +33,71 @@
                 <ColumnDefinition Width="75"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0">
-                <TextBlock.Text>Path:</TextBlock.Text>
-                <TextBlock.VerticalAlignment>Center</TextBlock.VerticalAlignment>
-                <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
-            </TextBlock>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Path:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
 
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBox_path" KeyDown="TextBox_path_KeyDown">
-                <TextBox.Margin>0,5,5,5</TextBox.Margin>
-                <TextBox.Text>C:\</TextBox.Text>
-                <TextBox.TextWrapping>NoWrap</TextBox.TextWrapping>
-                <TextBox.VerticalContentAlignment>Center</TextBox.VerticalContentAlignment>
-            </TextBox>
+            <TextBox x:Name="textBox_path"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="0,5,5,5"
+                     Text="C:\"
+                     TextWrapping="NoWrap"
+                     VerticalContentAlignment="Center"
+                     KeyDown="TextBox_path_KeyDown"/>
 
-            <Button Grid.Row="0" Grid.Column="2" x:Name="button_doit" Click="Button_doit_Click">
-                <Button.Content>Start</Button.Content>
-                <Button.Margin>0,5,5,5</Button.Margin>
-            </Button>
+            <Button x:Name="button_doit"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,5,5,5"
+                    Content="Start"
+                    Click="Button_doit_Click"/>
 
-            <Button Grid.Row="0" Grid.Column="3" x:Name="button_options" Click="Button_options_Click">
-                <Button.Content>Options</Button.Content>
-                <Button.Margin>0,5,5,5</Button.Margin>
+            <Button x:Name="button_options"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="0,5,5,5"
+                    Content="Options"
+                    Click="Button_options_Click">
+
                 <Button.ContextMenu>
-                    <ContextMenu x:Name="options" Opened="OptionsMenu_Opened">
-                        <MenuItem Header="Save logs" Click="SaveLogs" InputGestureText="Ctrl+S"/>
-                        <MenuItem Header="Clear logs" Click="ClearLogs" InputGestureText="Ctrl+D"/>
+                    <ContextMenu x:Name="options"
+                                 Opened="OptionsMenu_Opened">
+
+                        <MenuItem Header="Save logs"
+                                  Click="SaveLogs"
+                                  InputGestureText="Ctrl+S"/>
+
+                        <MenuItem Header="Clear logs"
+                                  Click="ClearLogs"
+                                  InputGestureText="Ctrl+D"/>
+
                         <Separator/>
-                        <MenuItem x:Name="allow_edit" Header="Allow editing" Click="Allow_edit_Click"/>
-                        <MenuItem x:Name="topmost_switcher" Header="Window top-most" Click="Switch_Window_Topmost"/>
+
+                        <MenuItem x:Name="allow_edit"
+                                  Header="Allow editing"
+                                  Click="Allow_edit_Click"/>
+
+                        <MenuItem x:Name="topmost_switcher"
+                                  Header="Window top-most"
+                                  Click="Switch_Window_Topmost"/>
+
                         <Separator/>
-                        <MenuItem x:Name="filter_setter" Header="Filter" Click="Filter_setter_Click"/>
-                        <MenuItem x:Name="include_subdir" Header="Include subdirectories" Click="Include_subdir_Click"/>
+
+                        <MenuItem x:Name="filter_setter"
+                                  Header="Filter"
+                                  Click="Filter_setter_Click"/>
+
+                        <MenuItem x:Name="include_subdir"
+                                  Header="Include subdirectories"
+                                  Click="Include_subdir_Click"/>
+
                         <Separator/>
-                        <MenuItem Header="View source code" Click="View_source_code_Click"/>
+
+                        <MenuItem Header="View source code"
+                                  Click="View_source_code_Click"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -65,12 +105,14 @@
         </Grid>
 
         <!--the second row-->
-        <RichTextBox Grid.Row="1" x:Name="richTextBox_main" TextChanged="RichTextBox_main_TextChanged">
-            <RichTextBox.IsReadOnly>True</RichTextBox.IsReadOnly>
-            <RichTextBox.Background>Black</RichTextBox.Background>
-            <RichTextBox.FontFamily>Consolas</RichTextBox.FontFamily>
-            <RichTextBox.VerticalScrollBarVisibility>Auto</RichTextBox.VerticalScrollBarVisibility>
-            <RichTextBox.HorizontalScrollBarVisibility>Auto</RichTextBox.HorizontalScrollBarVisibility>
+        <RichTextBox x:Name="richTextBox_main"
+                     Grid.Row="1"
+                     IsReadOnly="True"
+                     Background="Black"
+                     FontFamily="Consolas"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     TextChanged="RichTextBox_main_TextChanged">
             <FlowDocument LineHeight="1"/>
         </RichTextBox>
 
